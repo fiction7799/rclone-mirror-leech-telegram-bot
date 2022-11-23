@@ -208,8 +208,7 @@ class MirrorLeechListener:
             await sendMarkup(format_out, self.message, reply_markup= button.build_menu(1))
         else:
             LOGGER.info(err.decode().strip())
-            await sendMessage(format_out, self.message)
-        clean_download(self.dir)
+            await sendMessage(format_out, self.message)   
         async with status_dict_lock:
             try:
                 del status_dict[self.uid]
@@ -222,8 +221,7 @@ class MirrorLeechListener:
             await update_all_messages()
 
     async def onRcloneSyncComplete(self, msg):
-        await sendMessage(msg, self.message)
-        clean_download(self.dir)
+        await sendMessage(msg, self.message) 
         async with status_dict_lock:
             try:
                 del status_dict[self.uid]
@@ -271,7 +269,6 @@ class MirrorLeechListener:
                         await sendMessage(f"{msg}\n<b>cc: </b>{self.__tag}", self.message)  
                 else:
                     await sendMessage(f"{msg}\n\n<b>cc: </b>{self.__tag}", self.message)
-        clean_download(self.dir)
         async with status_dict_lock:
             try:
                 del status_dict[self.uid]
@@ -301,7 +298,6 @@ class MirrorLeechListener:
                     fmsg = ''
             if fmsg != '':
                 await sendMessage(msg + fmsg, self.message)
-        clean_download(self.dir)
         async with status_dict_lock:
             try:
                 del status_dict[self.uid]
@@ -315,7 +311,6 @@ class MirrorLeechListener:
 
     async def onDownloadError(self, error):
         error = error.replace('<', ' ').replace('>', ' ')
-        clean_download(self.dir)
         async with status_dict_lock:
             try:
                 del status_dict[self.uid]
@@ -331,7 +326,6 @@ class MirrorLeechListener:
 
     async def onUploadError(self, error):
         e_str = error.replace('<', '').replace('>', '')
-        clean_download(self.dir)
         async with status_dict_lock:
             try:
                 del status_dict[self.uid]
